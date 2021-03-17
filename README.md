@@ -89,6 +89,8 @@ python3 -m jupyterlab
 
 ### SSH CONFIG
 ```
+chmod 600 path_to_key.pem
+
 ## ------ SPARK -----
 Host 130.238.29.16 
   User ubuntu
@@ -96,21 +98,34 @@ Host 130.238.29.16
   # Master Node UI
   LocalForward 8080 192.168.2.179:8080
 
+## ------ Worker ----
+Host 130.238.28.38
+  User ubuntu
+  IdentityFile PATH TO PEM
+
 
 # Connect via SSH
 ssh 130.238.29.16
 ```
 
+### Prepare a worker instance
+Launch a new instance with Instance Snapshot Volume (Delete volume on instance delete). The Snapshot Name "Team6_main" with flavour ssc.xsmall. Connect to instance and execute worker
+
 ### Start Spark
 ```
+# Connect to the master instance and execute the command
+
 . /usr/local/spark/sbin/start-master.sh 
 
-## Add worker
-. /usr/local/spark/sbin/start-worker.sh spark://1192.168.2.179:7077
+## Connect to the worker instance and start worker
+. /usr/local/spark/sbin/start-worker.sh spark://192.168.2.179:7077
 ```
 
 ### Stop Spark
 ```
+# Connect to the master instance
 . /usr/local/spark/sbin/stop-worker.sh
+
+# Connect to the worker instance
 . /usr/local/spark/sbin/stop-master.sh 
 ```
