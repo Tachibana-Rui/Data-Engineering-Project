@@ -83,8 +83,6 @@ python3 -m pip install matplotlib --user
 # install jupyterlab
 python3 -m pip install jupyterlab
 
-# start the notebook!
-python3 -m jupyterlab
 ```
 
 ### SSH CONFIG
@@ -97,6 +95,9 @@ Host 130.238.29.16
   IdentityFile PATH TO PEM
   # Master Node UI
   LocalForward 8080 192.168.2.179:8080
+  # Jupyter Notebook UI
+
+
 
 ## ------ Worker ----
 Host 130.238.28.38
@@ -117,8 +118,14 @@ Launch a new instance with Instance Snapshot Volume (Delete volume on instance d
 
 . /usr/local/spark/sbin/start-master.sh 
 
+# Start Workers from Master Node - Requires SSH setup
+. /usr/local/spark/sbin/start-workers.sh 
+
 ## Connect to the worker instance and start worker
-. /usr/local/spark/sbin/start-worker.sh spark://192.168.2.179:7077
+. /usr/local/spark/sbin/start-worker.sh spark://192.168.2.179:7077 -p 10002
+
+# Localhost worker
+. /usr/local/spark/sbin/start-worker.sh spark://192.168.2.179:7077 -h localhost -p 10001 -c 1 -m 1024M
 ```
 
 ### Stop Spark
@@ -128,4 +135,10 @@ Launch a new instance with Instance Snapshot Volume (Delete volume on instance d
 
 # Connect to the worker instance
 . /usr/local/spark/sbin/stop-master.sh 
+```
+
+## Jupyter Notebook
+```
+# start the notebook!
+python3 -m jupyterlab
 ```
