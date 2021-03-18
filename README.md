@@ -96,6 +96,7 @@ Host 130.238.29.16
   # Master Node UI
   LocalForward 8080 192.168.2.179:8080
   # Jupyter Notebook UI
+  LocalForward 8888 localhost:8888
 
 
 
