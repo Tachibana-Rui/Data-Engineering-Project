@@ -90,11 +90,11 @@ python3 -m pip install jupyterlab
 chmod 600 path_to_key.pem
 
 ## ------ SPARK -----
-Host 130.238.29.16 
+Host 130.238.29.248 
   User ubuntu
   IdentityFile PATH TO PEM
   # Master Node UI
-  LocalForward 8080 192.168.2.179:8080
+  LocalForward 8080 192.168.2.111:8080
   # Jupyter Notebook UI
   LocalForward 8888 localhost:8888
 
@@ -107,7 +107,7 @@ Host 130.238.28.38
 
 
 # Connect via SSH
-ssh 130.238.29.16
+ssh 130.238.29.248
 ```
 
 ### Prepare a worker instance
@@ -123,10 +123,10 @@ Launch a new instance with Instance Snapshot Volume (Delete volume on instance d
 . /usr/local/spark/sbin/start-workers.sh 
 
 ## Connect to the worker instance and start worker
-. /usr/local/spark/sbin/start-worker.sh spark://192.168.2.179:7077 -p 10002
+. /usr/local/spark/sbin/start-worker.sh spark://192.168.2.111:7077 -p 10002
 
 # Localhost worker
-. /usr/local/spark/sbin/start-worker.sh spark://192.168.2.179:7077 -h localhost -p 10001 -c 1 -m 1024M
+. /usr/local/spark/sbin/start-worker.sh spark://192.168.2.111:7077 -h localhost -p 10001 -c 1 -m 1024M
 ```
 
 ### Stop Spark
