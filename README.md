@@ -98,15 +98,19 @@ Host 130.238.29.248
   # Jupyter Notebook UI
   LocalForward 8888 localhost:8888
 
-
-
-## ------ Worker ----
+## ------ Worker 1 ----
 Host 130.238.28.38
+  User ubuntu
+  IdentityFile PATH TO PEM
+  LocalForward 8081 
+
+## ------ Worker 2 ----
+Host 130.238.29.16
   User ubuntu
   IdentityFile PATH TO PEM
 
 
-# Connect via SSH
+# Connect to master via SSH
 ssh 130.238.29.248
 ```
 
@@ -122,11 +126,17 @@ Launch a new instance with Instance Snapshot Volume (Delete volume on instance d
 # Start Workers from Master Node - Requires SSH setup
 . /usr/local/spark/sbin/start-workers.sh 
 
-## Connect to the worker instance and start worker
+## Connect to the worker instance and start worker 1
 . /usr/local/spark/sbin/start-worker.sh spark://192.168.2.111:7077 -p 10002
 
-# Localhost worker
-. /usr/local/spark/sbin/start-worker.sh spark://192.168.2.111:7077 -h localhost -p 10001 -c 1 -m 1024M
+## Connect to the worker instance and start worker 2
+. /usr/local/spark/sbin/start-worker.sh spark://192.168.2.111:7077 -p 10003
+
+# Localhost worker - Change the port for each one you want to create.
+. /usr/local/spark/sbin/start-worker.sh spark://192.168.2.111:7077 -h localhost -p 10001 -c 2 -m 2048M
+
+# Kill localhost workers
+. /usr/local/spark/sbin/stop-workers.sh 
 ```
 
 ### Stop Spark
