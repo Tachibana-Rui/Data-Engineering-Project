@@ -33,6 +33,16 @@
 </property>
 
 <property>
+  <name>yarn.resourcemanager.address</name>
+  <value>master:8032</value>
+</property>
+
+<property>
+  <name>yarn.resourcemanager.resource-tracker.address</name>
+  <value>master:8031</value>
+</property>
+
+<property>
   <name>yarn.nodemanager.aux-services</name>
   <value>mapreduce_shuffle</value>
 </property>
